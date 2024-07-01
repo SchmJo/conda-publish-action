@@ -16,14 +16,7 @@ RUN conda --version
 LABEL "repository"="https://github.com/SchmJo/conda-publish-action"
 LABEL "maintainer"="Jonas Schulte"
 
-RUN apt-get update
-# to fix: import cv2 > ImportError: libGL.so.1: cannot open shared object file: No such file or directory
-RUN apt-get install -y libgl1-mesa-dev
-
-# to fix: import cv2 > ImportError: libjasper.so.1: cannot open shared object file: No such file or directory
-RUN apt-get install -y libjasper1
-
-RUN conda install -c conda-forge -y anaconda-client conda-build conda-verify
+RUN conda install -y anaconda-client conda-build conda-verify
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
