@@ -7,17 +7,16 @@ A Github Action to publish your software package to an Anaconda repository.
 ```yaml
 name: publish_conda
 
-on:
-  release:
-    types: [published]
+on: push
     
 jobs:
   publish:
+    if: startsWith(github.ref, 'refs/tags/')  # only publish to conda-forge on tag pushes
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: publish-to-conda
-      uses: fcakyon/conda-publish-action@v1.3
+      uses: schmjo/conda-publish-action@master
       with:
         subdir: 'conda'
         anacondatoken: ${{ secrets.ANACONDA_TOKEN }}
@@ -50,6 +49,3 @@ jobs:
 
 ### Supported anaconda channels
 - conda-forge
-- pytorch
-- fcakyon
-- districtdatalabs

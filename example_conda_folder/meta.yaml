@@ -1,7 +1,7 @@
 {% set data = load_setup_py_data() %}
 
 package:
-  name: albumentations
+  name: {{ data['name'] }}
   version: {{ data['version'] }}
 
 source:
@@ -14,21 +14,48 @@ build:
 requirements:
   build:
     - python
-    - numpy>=1.11.1,<1.16.0
+    - matplotlib-base
+    - numpy
+    - pandas
+    - xarray
+    - dask
+    - distributed
     - scipy
-    - opencv
+    - windrose
+    - iwopy
+    - pyyaml
+    - netcdf4
+    - pyarrow
 
   run:
     - python
-    - numpy>=1.11.1,<1.16.0
-    - scipy 
-    - opencv
+    - matplotlib-base
+    - numpy
+    - pandas
+    - xarray
+    - dask
+    - distributed
+    - scipy
+    - windrose
+    - iwopy
+    - pyyaml
+    - netcdf4
+    - pyarrow
 
 test:
   imports:
-    - albumentations
+    - foxes
+  requires:
+    - pip
+    - pytest
+    - pymoo
+  source_files:
+    - tests
+  commands:
+    - pip check
+    - pytest tests
 
 about:
-  home: {{ data['url'] }}
+  home: {{ data['project_urls']['Source Code'] }}
   license: {{ data['license'] }}
-summary: {{ data['description'] }}
+summary: {{ data['long_description'] }}
